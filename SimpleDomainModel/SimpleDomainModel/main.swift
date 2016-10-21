@@ -100,7 +100,7 @@ open class Job {
         case .Hourly(let rate):
             self.type = Job.JobType.Hourly(rate + amt)
         case .Salary(let rate):
-            self.type = Job.JobType.Salary(rate + rate)
+            self.type = Job.JobType.Salary(rate + Int(amt))
         }
     }
 }
@@ -156,10 +156,12 @@ open class Family {
     
     public init(spouse1: Person, spouse2: Person) {
         if spouse1.spouse == nil && spouse2.spouse == nil {
-            spouse1.spouse = spouse2
-            spouse2.spouse = spouse1
-            members.append(spouse1)
-            members.append(spouse2)
+            if spouse1.age >= 21 || spouse2.age >= 21 {
+                spouse1.spouse = spouse2
+                spouse2.spouse = spouse1
+                members.append(spouse1)
+                members.append(spouse2)
+            }
         }
     }
     
